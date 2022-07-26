@@ -1,8 +1,7 @@
 ﻿using ANIME_DI.Data;
-using ANIME_DI.Model;
-using Microsoft.AspNetCore.Mvc;
+using ANIME_DI.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Mvc;
 
 namespace ANIME_DI.Controllers
 {
@@ -10,45 +9,46 @@ namespace ANIME_DI.Controllers
     [ApiController]
     public class AnimeController : ControllerBase
     {
-        private readonly IAnimeRepository _repository1;
-        public AnimeController(IAnimeRepository repository)
+        private readonly IAnimeRepository _animeRepository;
+        public AnimeController(IAnimeRepository animeRepository)
         {
-           _repository1 = repository;
-    }
-        //AnimeRepository repository = new AnimeRepository();
-        
+           _animeRepository = animeRepository;
+        }
 
         // GET: api/<AnimeController>
         [HttpGet]
         public ActionResult<IEnumerable<Anime>> Get()
         {
-            var Animes = _repository1.GetallAnimes();
+            var Animes = _animeRepository.GetAllAnime();
             return Ok(Animes);
         }
 
         // GET api/<AnimeController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Anime Get(int id)
         {
-            return "value";
+            return _animeRepository.GetAnimeById(id);
         }
 
         // POST api/<AnimeController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Anime Post(string name, string mcName, int seasons)
         {
+            return _animeRepository.AddAnime(name, mcName, seasons);
         }
 
         // PUT api/<AnimeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Anime Put(int id, string name, string mcName, int seasons)
         {
+            return _animeRepository.UpdateAnime(id, name, mcName, seasons);
         }
 
         // DELETE api/<AnimeController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _animeRepository.Delete(id);
         }
     }
 }

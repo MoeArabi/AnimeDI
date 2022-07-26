@@ -1,3 +1,5 @@
+using ANIME_DI.Data;
+
 namespace ANIME_DI
 {
     public class Program
@@ -8,7 +10,7 @@ namespace ANIME_DI
 
             // Add services to the container.
             //ADDING MY DEPENDENCIES
-            builder.Services.AddTransient<Data.IAnimeRepository, Data.AnimeRepository>();
+            builder.Services.AddSingleton<IAnimeRepository, AnimeRepository>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

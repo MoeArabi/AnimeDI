@@ -1,34 +1,42 @@
-﻿using ANIME_DI.Model;
+﻿using ANIME_DI.Models;
 
 namespace ANIME_DI.Data
 {
     public class AnimeRepository : IAnimeRepository
     {
-        public static List<Anime> Animes = new List<Anime>
-    {
-                new Anime {Id = 1, Name="OnePiece",MCName="Luffy",seasons=20 },
-                new Anime {Id = 2, Name="Naruto Shippuden",MCName="Naruto",seasons=15 }
-
-    };
-        public List<Anime> GetallAnimes()
+        public static List<Anime> AnimeList = new()
         {
-            return Animes;
+            new(1, "OnePiece", "Luffy", 20 ),
+            new(2, "Naruto Shippuden", "Naruto", 15)
+        };
+        public List<Anime> GetAllAnime()
+        {
+            return AnimeList;
         }
-        public List<Anime> Addanime(Anime anime)
+        public Anime AddAnime(string name, string mcName, int seasons)
         {
-            Animes.Add(anime);
-
-
-            return Animes;
+            var newId = AnimeList.Max(x => x.Id) + 1;
+            Anime anime = new(newId, name, mcName, seasons);
+            AnimeList.Add(anime);
+            return anime;
         }
-        public List<Anime> Delete(int id)
+        public void Delete(int id)
         {
-            var anime = Animes.Find(H => H.Id == id);
-            if (anime == null)
-                // return BadRequest("Anime not found.");
-                Animes.Remove(anime);
-            return Animes;
+            var anime = AnimeList.FirstOrDefault(a => a.Id == id);
+            if (anime != null)
+                AnimeList.Remove(anime);
         }
 
+        public Anime GetAnimeById(int id)
+        {
+            return AnimeList.FirstOrDefault(a => a.Id == id);
+        }
+
+        public Anime UpdateAnime(int id, string name, string mcName, int seasons)
+        {
+            var anime = AnimeList.FirstOrDefault(a => a.Id == id);
+            var updatedAnime = anime.Update(name, mcName, seasons);
+            return updatedAnime;
+        }
     }
 }
