@@ -7,6 +7,11 @@
         public string MCName { get; set; }
         public int Seasons { get; set; }
 
+        public Anime()
+        {
+
+        }
+
         public Anime(int id, string name, string mcName, int seasons)
         {
             Id = id;

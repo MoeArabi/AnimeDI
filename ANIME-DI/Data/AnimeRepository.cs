@@ -4,11 +4,8 @@ namespace ANIME_DI.Data
 {
     public class AnimeRepository : IAnimeRepository
     {
-        public static List<Anime> AnimeList = new()
-        {
-            new(1, "OnePiece", "Luffy", 20 ),
-            new(2, "Naruto Shippuden", "Naruto", 15)
-        };
+        public List<Anime> AnimeList = new();
+
         public List<Anime> GetAllAnime()
         {
             return AnimeList;

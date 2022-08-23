@@ -7,7 +7,7 @@ namespace ANIME_DI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddDbContext<AppDBContext>();
             // Add services to the container.
             //ADDING MY DEPENDENCIES
             builder.Services.AddSingleton<IAnimeRepository, AnimeRepository>();
