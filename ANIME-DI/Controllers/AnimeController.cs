@@ -1,4 +1,4 @@
-﻿using ANIME_DI.Data;
+﻿using ANIME_DI.Data.Repositories;
 using ANIME_DI.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -25,23 +25,23 @@ namespace ANIME_DI.Controllers
 
         // GET api/<AnimeController>/5
         [HttpGet("{id}")]
-        public Anime Get(int id)
+        public Task<Anime> Get(int id)
         {
             return _animeRepository.GetAnimeById(id);
         }
 
         // POST api/<AnimeController>
         [HttpPost]
-        public Anime Post(string name, string mcName, int seasons)
+        public Task<Anime> Post(Anime anime)
         {
-            return _animeRepository.AddAnime(name, mcName, seasons);
+            return _animeRepository.AddAnime(anime);
         }
 
         // PUT api/<AnimeController>/5
         [HttpPut("{id}")]
-        public Anime Put(int id, string name, string mcName, int seasons)
+        public Task<Anime> Put(Anime anime)
         {
-            return _animeRepository.UpdateAnime(id, name, mcName, seasons);
+            return _animeRepository.UpdateAnime(anime);
         }
 
         // DELETE api/<AnimeController>/5
