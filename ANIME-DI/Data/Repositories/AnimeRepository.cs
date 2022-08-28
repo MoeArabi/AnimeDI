@@ -6,7 +6,6 @@ namespace ANIME_DI.Data.Repositories
 {
     public class AnimeRepository : IAnimeRepository
     {
-        public List<Anime> AnimeList = new();
 
         private readonly AppDBContext _context;
 
@@ -31,7 +30,10 @@ namespace ANIME_DI.Data.Repositories
         {
             var animeToRemove = await _dbSet.FirstOrDefaultAsync<Anime>(a => a.Id == id);
             if (animeToRemove != null)
-                 _dbSet.Remove(animeToRemove);
+            {
+                _dbSet.Remove(animeToRemove);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<Anime> GetAnimeById(int id) => await _dbSet.FirstOrDefaultAsync(a => a.Id == id);
